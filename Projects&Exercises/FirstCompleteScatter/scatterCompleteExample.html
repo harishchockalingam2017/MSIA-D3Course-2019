@@ -25,6 +25,13 @@
   font-size: 11px;
 }
 
+.ufoLine {
+  /*removes black fill*/
+  fill: none;
+  /*styles line */
+  stroke: darkgray;
+  stroke-width: 3   ;
+}
 /*NEW CSS GOES HERE*/
 
 </style>
@@ -74,6 +81,12 @@ function dataSwap(datasetGroup) {
       .data(thisDataGroup)
       .text(function(d) { return d.count})
 
+    svg.selectAll('.ufoLine')
+    .transition()
+    .ease(d3.easeElastic) //if you use the same ease here as you do with the circles, the line and circles will move together.
+    .duration(transitionTime)
+    .attr('d', lineGenerator(thisDataGroup));
+
   // update title
   d3.select('#titleText')
     .text('UFO Sightings in ' + datasetGroup);
@@ -121,6 +134,9 @@ var xAxisGroup = svg.append("g")
 
 var yAxisGroup = svg.append("g")
     .attr("class", "y axis"); //gives group the classes `y` and `axis`
+
+ var lineGenerator = d3.line()
+    .curve(d3.curveCardinal);
 
 // transforming data into json
 d3.csv("data/ufo.csv", ready)
@@ -224,6 +240,18 @@ function ready(error, data) {
     .attr('dy', -radius)
     .text(function(d) { return d.count})
     .style('opacity', 0)
+
+  lineGenerator 
+    .x(function(d) { return xScale(d.date)})
+    .y(function(d) { return yScale(d.count)})
+    .curve(d3.curveCardinal);
+
+  svg.append('path')
+    .attr('class', 'ufoLine')
+    .attr('d', lineGenerator(startData));
+
+	console.log(lineGenerator(startData));
+
 
 };
 

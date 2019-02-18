@@ -6,7 +6,7 @@
     <title>Second Bar Chart Using D3!</title>
     <style>
         /* Set `rect` elements to have a "fill" of "purple" or whatever color you choose */
-
+        svg{ border: 1px solid #f0f; }
         rect {
             fill: purple;
         }
@@ -18,6 +18,34 @@
 <body>
 </body>
 <script type="text/javascript">
+
+    var p= d3.select('body').append(p).text('My Bar Graph')
+
+    var div=d3.select('body').append('div')
+
+    var svg=div.append('svg')
+        .attr('width', 300)
+        .attr('height', 300)
+
+    var rect1 =  svg.append('rect')
+        .attr('x', 0)
+        .attr('y', 10)
+        .attr('width', 100)
+        .attr('height', 20)
+
+
+    var rect2 = svg.append('rect')
+        .attr('x', 0)
+        .attr('y', 40)
+        .attr('width', 200)
+        .attr('height', 20)
+
+    var rect3=svg.append('rect')
+        .attr('x', 0)
+        .attr('y', 70)
+        .attr('width', 300)
+        .attr('height', 20)
+
     // 1) Select your `body` and append a `div` element in which you'll render your content. To do this, you'll use the `d3.select()` method, and then the `.append()` method to append your element to your selection.
 
     // 2)  Append a new `p` element to the `div` you just created, and use the `.text()` method to set the text to "My Bar Chart"
